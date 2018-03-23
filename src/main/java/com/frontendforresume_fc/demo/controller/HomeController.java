@@ -83,6 +83,7 @@ public class HomeController {
 //
         }
 
+
 //        Must redirect to login to new rigister user form input within /applicant_resume route checkinng for requirement descriptions and and boolean values
         return "redirect:/login";
     }
@@ -99,7 +100,7 @@ public class HomeController {
     @GetMapping("/submithit")
     public String showhitform(Model model,@ModelAttribute("user") User user){
 
-        return "html/hitapply_form";
+        return "html/testhitapply_form";
     }
 
     @PostMapping("/submithit")
@@ -107,7 +108,7 @@ public class HomeController {
 
         {
             if (result.hasErrors()) {
-                return "html/hitapply_form";
+                return "html/testhitapply_form";
             }
         }
 
