@@ -5,12 +5,14 @@ body {
     font: 400 .9em/1.9 'Open Sans', Calibri, Helvetica, Arial, sans-serif;
 }
 
+/*Fixing select styles postion for label select design*/
 .custom-select {
     position: relative;
-    width: 100%;
-    max-width: 25em;
+    width: 80%;
+    max-width: 200%;
     margin: 4em auto;
     cursor: pointer;
+    word-wrap: break-word;
 }
 
 .select,

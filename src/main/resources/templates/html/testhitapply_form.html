@@ -50,6 +50,22 @@
 
 <!-- END of ALL MENUS FOR ADMIN -->
 
+<section class="block">
+    <div class="container">
+        <div class="title-group line-default">
+            <h1>Apply Hiring in Tech Application</h1>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+
+
+            </div>
+        </div>
+    </div>
+    </div>
+</section>
+</header>
+
 <form th:action="@{/submithit}" th:object="${user}" method="post" action="#">
     <input type="hidden" th:field="*{id}">
 
@@ -75,7 +91,7 @@
           th:errors="*{underemploymentStatus}">underemploymentStatus Error</span>
 
     <div class="custom-select">
-        <label for="select-choice3" class="label select-3"><span class="selection-choice">Are you Currently underemployed? In the state of Maryland, a person who makes $42,000 or less is underemployed</span> </label>
+        <label for="select-choice3" class="label select-3"><span class="selection-choice">Are you Currently underemployed? For MD residents, underemployed is earning less than $42,000.</span> </label>
         <select id="select-choice3" class="select" th:field="*{underemploymentStatus}">
             <option value="yes">Yes</option>
             <option value="no">No</option>>
@@ -86,7 +102,7 @@
           th:errors="*{itcareerInterest}">itcareerInterest Error</span>
 
     <div class="custom-select">
-        <label for="select-choice4" class="label select-4"><span class="selection-choice">Are you passionate about coding and  believe you have the drive to succeed in an challenging immersive environment?</span> </label>
+        <label for="select-choice4" class="label select-4"><span class="selection-choice">Are you passionate about coding and  believe you have the drive to succeed?</span> </label>
         <select id="select-choice4" class="select">
             <option value="yes">Yes</option>
             <option value="no">No</option>
@@ -130,7 +146,7 @@
           th:errors="*{gradYear}">gradYear  Error</span>
 
     <div class="custom-select">
-        <label for="select-choice4" class="label select-4"><span class="selection-choice">Our ideal candidate has graduatated college within the last 6 years?  Have you graduated during this timeframe?</span> </label>
+        <label for="select-choice4" class="label select-4"><span class="selection-choice">Have you graduated college within the last 6 years?</span> </label>
         <select id="select-choice4" class="select" th:field="*{gradYear}">
             <option value="yes">Yes</option>
             <option value="no">No</option>
@@ -151,21 +167,7 @@
     <button type="submit" class="ht-btn bg-4f84c4 pull-right">Submit</button>
 </form>
 
-<section class="block">
-    <div class="container">
-        <div class="title-group line-default">
-            <h1>Apply Hiring in Tech Application</h1>
-        </div>
-        <div class="row">
-            <div class="col-sm-12">
 
-
-        </div>
-        </div>
-    </div>
-    </div>
-</section>
-</header>
 
 
 <!-- START of FOOTER -->
