@@ -45,8 +45,6 @@ public class HomeController {
     @GetMapping("/register")
     public String register(@ModelAttribute("user") User user, Model model) {
         model.addAttribute("user", new User());
-//Creating new user and new requirments templates.model for the newly created user
-
         return "html/register";
     }
 
@@ -58,9 +56,7 @@ public class HomeController {
         if (result.hasErrors()) {
             return "html/register";
         } else {
-//            Pasing in the current created user and requirments and checking username
             userService.saveNewUser(user);
-//
         }
 
         return "redirect:/login";
@@ -175,18 +171,17 @@ public class HomeController {
         studentService.apply2Programme(currUser, ptf);
 
 
-        model.addAttribute("applyptfuserlist",userRepository.findAll());
+        model.addAttribute("applyptfuserlist", userRepository.findAll());
 
         return "redirect:/applicant_dashboard_applied";
     }
 
 
-
     @RequestMapping("/accepted_students_hit")
     public String viewAcceptedStudentsForHIT(Model model) {
         Programme hit = programmeService.findByName("Hiring in Tech");
-        model.addAttribute("counthitaccepted",adminService.getAcceptedStudents(hit));
-        model.addAttribute("hitaccepted",adminService.getAcceptedStudents(hit));
+        model.addAttribute("counthitaccepted", adminService.getAcceptedStudents(hit));
+        model.addAttribute("hitaccepted", adminService.getAcceptedStudents(hit));
         return "html/accepted_students_hit";
     }
 
@@ -194,8 +189,8 @@ public class HomeController {
     public String viewAcceptedStudentsForPTF(Model model) {
         Programme ptf = programmeService.findByName("Promising the Future");
 
-        model.addAttribute("countptfaccepted",adminService.getNumOfAcceptedStudents(ptf));
-        model.addAttribute("ptfaccepted",adminService.getAcceptedStudents(ptf));
+        model.addAttribute("countptfaccepted", adminService.getNumOfAcceptedStudents(ptf));
+        model.addAttribute("ptfaccepted", adminService.getAcceptedStudents(ptf));
 
 
         return "html/accepted_students_ptf";
@@ -217,9 +212,8 @@ public class HomeController {
         Programme ptf = programmeService.findByName("Promising the Future");
 
 
-
-        model.addAttribute("counthit",adminService.getNumOfAcceptedStudents((hit)));
-        model.addAttribute("countptf",adminService.getNumOfAppliedStudents(ptf));
+        model.addAttribute("counthit", adminService.getNumOfAcceptedStudents((hit)));
+        model.addAttribute("countptf", adminService.getNumOfAppliedStudents(ptf));
 
 //Currently Displaying new user registation output for Based on Registeration form answers needs to be cleaner solution instead of adding to different models.
 //        Must pass user templates.model to save these requirments for this user.
@@ -229,8 +223,20 @@ public class HomeController {
 
 
     @RequestMapping("/add_admin")
-    public String addAdmin() {
+    public String addAdmin(Model model) {
+        model.addAttribute("user", new User());
         return "html/add_admin";
+    }
+
+    @PostMapping("/add_admin")
+    public String addNewAdmin(@Valid @ModelAttribute("user") User user, BindingResult result, Model model) {
+        model.addAttribute("user", user);
+        if (result.hasErrors()) {
+            return "html/add_admin";
+        }
+        userService.saveNewAdmin(user);
+
+        return "redirect:/";
     }
 
 
@@ -248,11 +254,10 @@ public class HomeController {
         boolean appliedPTF = student.containsAppliedProgramme(ptf);
         model.addAttribute("user", student);
         model.addAttribute("userlist", userRepository.findAll());
-        model.addAttribute("appliedhit",appliedHIT);
-        model.addAttribute("appliedptf",appliedPTF);
+        model.addAttribute("appliedhit", appliedHIT);
+        model.addAttribute("appliedptf", appliedPTF);
         return "html/applicant_resume";
     }
-
 
 
     @RequestMapping("/approveptf/{id}")
@@ -288,7 +293,7 @@ public class HomeController {
 
 
     @RequestMapping("/applicant_dashboard_applied")
-    public String applicantDashboardApplied(Authentication auth, Model model, @ModelAttribute ("user") User user ) {
+    public String applicantDashboardApplied(Authentication auth, Model model, @ModelAttribute("user") User user) {
         Programme hit = programmeService.findByName("Hiring in Tech");
         Programme ptf = programmeService.findByName("Promising the Future");
         User currentuser = userService.findByUsername(auth.getName());
@@ -297,7 +302,7 @@ public class HomeController {
     }
 
     @RequestMapping("/applicant_dashboard_suggested")
-    public String suggestedProgrammes(Model model, Authentication auth){
+    public String suggestedProgrammes(Model model, Authentication auth) {
         Set<Programme> programmes = studentService.getProgrammeSuggestion(userService.findByUsername(auth.getName()));
         model.addAttribute("programmes", programmes);
         return "html/applicant_dashboard_suggested";
@@ -305,11 +310,11 @@ public class HomeController {
 
 
     @RequestMapping("/applicant_dashboard_approved")
-    public String applicantDashboardApproved(Authentication auth, Model model, @ModelAttribute ("user") User user ) {
+    public String applicantDashboardApproved(Authentication auth, Model model, @ModelAttribute("user") User user) {
         Programme hit = programmeService.findByName("Hiring in Tech");
         Programme ptf = programmeService.findByName("Promising the Future");
         user = userService.findByUsername(auth.getName());
-        model.addAttribute("approvedprogram",user.getApprovedProgramme());
+        model.addAttribute("approvedprogram", user.getApprovedProgramme());
         return "html/applicant_dashboard_approved";
     }
 
